@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+<body>
+
+<canvas id="myCanvas" width="400" height="500" style="border:1px solid #c3c3c3;background-color:black;">
+Your browser does not support the canvas element.
+</canvas>
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+    var c=document.getElementById("myCanvas");  
+    var ctx=c.getContext("2d");  
+	
+	/*ctx.fillStyle = "white";//定义演示
+    ctx.beginPath();//重新开始画图
+    ctx.arc(200, 200, 60, 0, Math.PI * 2, true);//x坐标 y坐标 半径 始 终 顺时针
+    ctx.closePath();//结束画布
+    ctx.fill();*/
+	
+	
+	
+
+ var radial = ctx.createRadialGradient(80,60,30,80,60,50); //重合的圆心坐标 
+
+radial.addColorStop(0,'white'); 
+radial.addColorStop(0.8,'black'); 
+ctx.fillStyle=radial;
+
+ctx.fillRect(0,0,160,120);
+</script>
+
+</body>
+</html>
