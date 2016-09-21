@@ -1,0 +1,144 @@
+var c=document.getElementById("myCanvas");  
+var ctx=c.getContext("2d");  
+
+function drawmoon(){
+var radial = ctx.createRadialGradient(80,60,30,80,60,50); //重合的圆心坐标 
+radial.addColorStop(0,'white'); 
+radial.addColorStop(1,'rgba(0,0,0,0)'); 
+ctx.fillStyle=radial;
+ctx.fillRect(0,0,200,200);
+}
+//-------------------------
+var starx=[],stary=[],starr=[];
+
+var mdx=[];
+var mdy=[];
+var l=150;
+var speed=2;
+var num;
+//----------------------------
+
+for (i=1;i<=200;i++){
+	starx[i]=Math.random()*500+5;
+	stary[i]=Math.random()*600+5;
+	starr[i]=Math.random();
+	ctx.beginPath();
+	ctx.arc(starx[i], stary[i], starr[i], 0, 2 * Math.PI);
+	ctx.closePath();
+	ctx.fillStyle = 'white';
+    ctx.fill();
+	
+}
+
+
+function blink(){
+	ctx.clearRect(0,0,500,600);
+	
+	var radial = ctx.createRadialGradient(80,60,30,80,60,50); //重合的圆心坐标 
+    radial.addColorStop(0,'white'); 
+    radial.addColorStop(0.8,'black'); 
+    ctx.fillStyle=radial;
+    ctx.fillRect(0,0,200,200);
+	
+	var flag=[];
+	for(i=1;i<=200;i++){
+		flag[i]=Math.random();
+	
+	  if (flag[i]>0.5){
+		starr[i]=starr[i]+0.2;
+		if (starr[i]>0.8)
+			starr[i]=0.8;
+	   }
+	  else{
+		starr[i]=starr[i]-0.2;
+		if(starr[i]<0)
+			starr[i]=0.1;
+	  }
+    }
+	drawstar();
+}
+
+function drawstar(){
+for (i=1;i<=200;i++){
+	ctx.beginPath();
+	ctx.arc(starx[i], stary[i], starr[i], 0, 2 * Math.PI);
+	ctx.closePath();
+	ctx.fillStyle = 'white';
+    ctx.fill();
+	}
+}
+
+
+//-------------------------------
+function getxandy(){
+    num=5;
+    for(var i=0;i<num;i++){
+	mdx[i]=Math.random()*500+300;
+	  if(mdx[i]<500)
+		  mdy[i]=0;
+	  else 
+		  mdy[i]= Math.random()*600; 
+    }
+	//setInterval('slide()',20);//slide
+	//if (count%20==0)
+	//blink();
+	//setInterval('blink()',200);//blink;
+}
+ 
+var f;
+function slide(){	
+
+  for(i=0;i<num;i++){
+	  
+    if(mdx[i]>0){
+	mdx[i]=mdx[i]-speed;
+	mdy[i]=mdy[i]+speed;
+	drawmeteor(mdx[i],mdy[i],l);
+	
+    }
+	else{
+		mdx[i]=Math.random()*500+300;
+	  if(mdx[i]<500)
+		  mdy[i]=0;
+	  else 
+		  mdy[i]= Math.random()*600; 
+    }
+	}
+  }
+ 
+
+
+
+function drawmeteor(x,y,r){
+gra = ctx.createRadialGradient(x, y, 0, x, y,r);
+gra.addColorStop(0, 'rgba(255,255,255,1)');
+gra.addColorStop(1, 'rgba(0,0,0,0)');
+ctx.save();
+ctx.fillStyle = gra;
+
+ctx.beginPath();
+ctx.arc(x,y,0.5,0.25*Math.PI,1.25*Math.PI,false);  
+ctx.lineTo(x+r,y-r);
+ctx.closePath();
+ctx.fill();
+}
+//--------------------------------
+//setInterval('blink()',200);//blink;
+//setInterval('getxandy()',5000);//meteor
+var count=0;
+function main(){
+	ctx.clearRect(0,0,500,600);
+	count++;
+	//if(count%10==0){
+		blink();
+		
+	//}
+	drawmoon();
+	drawstar();
+	slide();
+	//getxandy();
+}
+drawmoon();
+drawstar();
+getxandy();
+setInterval('main()',10);
