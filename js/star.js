@@ -5,7 +5,7 @@ var x=[],y=[],r=[];
 for (i=1;i<=200;i++){
 	x[i]=Math.random()*500+5;
 	y[i]=Math.random()*600+5;
-	r[i]=Math.random() +0.2;
+	r[i]=Math.random();
 	ctx.beginPath();
 	ctx.arc(x[i], y[i], r[i], 0, 2 * Math.PI);
 	ctx.closePath();
@@ -15,20 +15,30 @@ for (i=1;i<=200;i++){
 }
 
 
-//setInterval('blink()',1000);
+setInterval('blink()',1000);
 
 function blink(){
+	ctx.clearRect(0,0,500,600);
+	
+	var radial = ctx.createRadialGradient(80,60,30,80,60,50); //重合的圆心坐标 
+    radial.addColorStop(0,'white'); 
+    radial.addColorStop(0.8,'black'); 
+    ctx.fillStyle=radial;
+    ctx.fillRect(0,0,200,200);
+	
 	var flag=[];
 	for(i=1;i<=200;i++){
 		flag[i]=Math.random();
 	
-	  if (flag[i]>0.9){
+	  if (flag[i]>0.5){
 		r[i]=r[i]+0.2;
+		if (r[i]>0.8)
+			r[i]=0.8;
 	   }
 	  else{
 		r[i]=r[i]-0.2;
 		if(r[i]<0)
-			r[i]=0;
+			r[i]=0.1;
 	  }
     }
 	for (i=1;i<=200;i++){
@@ -38,10 +48,7 @@ function blink(){
 	ctx.fillStyle = 'white';
     ctx.fill();
 	}
-	j=400;while(j--){};
-	for (i=1;i<=200;i++){
-	ctx.clearRect(x[i]-1,y[i]-1,2,2);
-	}
+	
 }
 
 
