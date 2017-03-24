@@ -10,11 +10,8 @@ var num;
 function getxandy(){
     num=Math.floor(Math.random()*20)+1;
     for(var i=0;i<num;i++){
-	mdx[i]=Math.random()*width+500;
-	  if(mdx[i]<width)
-		  mdy[i]=0;
-	  else 
-		  mdy[i]= Math.random()*height; 
+	mdx[i]=Math.random()*width;
+	mdy[i]= Math.random()*height; 
     }
 }
  
